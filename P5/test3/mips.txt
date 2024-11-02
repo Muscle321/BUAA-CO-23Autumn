@@ -1,0 +1,54 @@
+lui $t1, 0xffff
+ori $t1, 0xfffe
+ori $t0, 2
+lui $ra, 0xffff
+ori $ra, 0xffff
+jal function
+add $t4, $t1, $t1
+sw $t4, 0($0)
+ori $s0, 0
+ori $s1, 32
+ori $s2, 1
+for_1_begin:
+beq $s0, $s1, for_1_end
+nop
+	add $s5, $s0, $s5
+add $s0, $s0, $s2
+nop
+jal for_1_begin
+for_1_end:
+ori $s0, 0
+ori $s1, 32
+ori $s2, 1
+for_2_begin:
+beq $s0, $s1, for_2_end
+nop
+	add $s6, $s0, $s6
+	jr $ra
+add $s0, $s0, $s2
+nop
+jal for_2_begin
+nop
+for_2_end:
+beq $s6, $s5, end
+beq $s0, $s6, end
+beq $s6, $s2, end
+beq $s0, $s2, end
+beq $0, $7, end
+function:
+lui $t2, 0xffff
+ori $t2, 0xfffe
+ori $t3, 2
+lui $t4, 0xffff
+ori $t4, 0xffff
+beq $t1, $t2, jump
+nop
+lui $ra, 0
+ori $ra, 0
+jump:
+sub $t4, $t4, $t1
+beq $t4, $t1, function
+nop
+jr $ra
+end:
+nop

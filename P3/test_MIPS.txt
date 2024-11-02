@@ -1,0 +1,14 @@
+lui $s0, 100
+ori $s1, $s0, 100
+add $t0, $s0, $s1
+ori $t0, $s0, 0
+beq $t0, $s0, jump
+beq $s0, $s1, jump2
+return:
+lui $s1, 0
+ori $s1,$0, 0
+add $s1, $s0, $s1
+beq $s1, $s0, jump2
+jump:
+beq $s0, $t0, return
+jump2:
